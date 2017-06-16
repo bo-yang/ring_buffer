@@ -84,7 +84,7 @@ inline T &RingBuffer<T>::back()
 {
      if(this->empty() || _v.empty())
          return _v.back();
-     return _v[_tail];
+     return _v[_tail - 1];
 }
 
 template <typename T>
@@ -92,7 +92,7 @@ inline const T &RingBuffer<T>::back() const
 {
      if(this->empty() || _v.empty())
          return _v.front();
-     return _v[_tail];
+     return _v[_tail - 1];
 }
 
 // Insert new element to the end
