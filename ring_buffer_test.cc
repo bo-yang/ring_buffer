@@ -20,6 +20,12 @@ void dump_ring_buffer(const RingBuffer<int> &buf, const string &word)
     printf("\n");
 }
 
+void print_internals(const RingBuffer<int> &buf)
+{
+    printf("_head = %d, _tail = %d, _size = %d, front: %d, back: %d\n",
+            buf.begin(), buf.end(), buf.size(), buf.front(), buf.back());
+}
+
 int main()
 {
     RingBuffer<int> buf(8);
@@ -27,6 +33,7 @@ int main()
     for (i = 0; i < 7; ++i)
         buf.push_back(i);
     dump_ring_buffer(buf, "Initial state");
+    print_internals(buf);
 
     buf.push_back(i++);
     dump_ring_buffer(buf, "1-elem inserted");
@@ -44,6 +51,7 @@ int main()
 
     buf.resize(10);
     dump_ring_buffer(buf, "Resized to 10");
+    print_internals(buf);
 
     buf.push_back(i++);
     dump_ring_buffer(buf, "1-elem inserted");
@@ -53,6 +61,7 @@ int main()
 
     buf.push_back(i++);
     dump_ring_buffer(buf, "1-elem inserted");
+    print_internals(buf);
 
     return 0;
 }
