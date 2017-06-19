@@ -139,25 +139,25 @@ inline void RingBuffer<T>::resize(size_t cap)
     assert(cap > 0);
 
     vector<T> vec;
+    vec.resize(cap);
     if (empty()) {
         clear();
     } else if(size() <= cap) {
         // buffer enlarged, _size no change
         for (size_t i = 0; i < size(); ++i)
-            vec.push_back(operator[](i));
+            vec[i] = operator[](i);
         _tail = size();
     } else {
         // buffer shrinked, truncate the first (cap - _size) elements
-        for(size_t i = size()-cap; i <= size(); ++i)
-            vec.push_back(operator[](i));
+        for(size_t i = size()-cap, j = 0; i < size(); ++i, ++j)
+            vec[j] = operator[](i);
         _tail = 0; // buffer full
         _size = cap;
     }
-
-    _cap = cap;
+    _head = 0;
     _v.resize(cap);
     _v = vec;
-    _head = 0;
+    _cap = cap;
 }
 
 // Returns a reference to the ith element from head.
